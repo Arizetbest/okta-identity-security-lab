@@ -644,9 +644,8 @@ This repository is strictly for a controlled, non-production lab.
 | 8 | Test and verify a successful MFA-protected login | Complete |
 | 9 | Test and verify failed authentication attempts | Complete |
 | 10 | Locate and review events in the System Log | Complete |
-| 11 | Configure group-based application access | Planned |
-| 12 | Document findings and lessons learned | Planned |
-| 13 | Optional Active Directory integration | Future enhancement |
+| 11 | Document findings and lessons learned | Planned |
+| 12 | Optional Active Directory integration | Future enhancement |
 
 ## Skills Demonstrated
 
