@@ -5,7 +5,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Okta-1662DD?logo=okta&logoColor=white)](https://www.okta.com/)
 [![Domain](https://img.shields.io/badge/Domain-Identity%20%26%20Access%20Management-0A66C2)](#project-overview)
 [![Security](https://img.shields.io/badge/Security-MFA%20%7C%20RBAC%20%7C%20Monitoring-00897B)](#security-controls)
-[![Status](https://img.shields.io/badge/Status-In%20Progress-F59E0B)](#project-roadmap)
+[![Status](https://img.shields.io/badge/Status-Core%20Lab%20Complete-22C55E)](#project-roadmap)
 [![Lab](https://img.shields.io/badge/Environment-Non--Production-6B7280)](#security-and-privacy)
 
 > A hands-on identity and access management lab covering user lifecycle administration, group-based access control, multi-factor authentication, and authentication-event monitoring with Okta.
@@ -77,7 +77,7 @@ flowchart LR
 - [x] Generated and verified a successful MFA-protected authentication event.
 - [x] Generated and verified failed MFA-code and password authentication events.
 - [x] Located and reviewed Alice's authentication events in the Okta System Log.
-- [ ] Document incident findings and remediation recommendations.
+- [x] Documented analyst findings, security lessons, and next steps.
 
 ## Phase 1: Create the Okta Tenant
 
@@ -607,6 +607,22 @@ The filtered System Log displayed Alice's authentication activity, providing evi
 
 > **Security note:** System Log evidence may expose usernames, IP addresses, geographic information, device details, tenant identifiers, session data, and policy names. Redact sensitive information before publishing screenshots or exported CSV files.
 
+## Analyst Conclusion
+
+The Okta System Log successfully recorded both authorised and failed authentication activity for the test identity. The successful login included completion of the configured MFA requirement, while the incorrect-password attempt was denied and recorded with its associated client and outcome information. This demonstrates how identity telemetry supports authentication monitoring, troubleshooting, and security investigations.
+
+## Conclusion
+
+Building this Okta Identity Security Lab provided practical experience in managing identities, enforcing multi-factor authentication, and monitoring authentication activity within a controlled cloud environment.
+
+Throughout the project, I created fictional users and professionally named groups, configured group membership, enabled Okta Verify, and implemented enrolment and Global Session policies. I then tested the complete authentication process by generating successful and failed login attempts and analysing the resulting events in the Okta System Log.
+
+The successful test confirmed that authorised users could securely access the Okta dashboard after completing MFA. The failed-login test demonstrated that Okta correctly rejected invalid passwords and verification codes while recording the activity for investigation.
+
+This project strengthened my understanding of identity lifecycle management, group-based access control, MFA enforcement, policy configuration, authentication monitoring, and security-event investigation. It also demonstrated how identity administrators and security analysts can use Okta to reduce account-compromise risks and maintain visibility into user activity.
+
+The next stage of this lab will integrate Okta with my `lab.local` Active Directory environment using a dedicated Windows member server and the Okta Active Directory Agent.
+
 ## Security Controls
 
 The completed lab will demonstrate:
@@ -644,7 +660,7 @@ This repository is strictly for a controlled, non-production lab.
 | 8 | Test and verify a successful MFA-protected login | Complete |
 | 9 | Test and verify failed authentication attempts | Complete |
 | 10 | Locate and review events in the System Log | Complete |
-| 11 | Document findings and lessons learned | Planned |
+| 11 | Document findings and lessons learned | Complete |
 | 12 | Optional Active Directory integration | Future enhancement |
 
 ## Skills Demonstrated
