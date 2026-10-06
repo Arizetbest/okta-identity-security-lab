@@ -62,6 +62,7 @@ flowchart LR
 - [x] Accessed the Okta Admin Console.
 - [x] Recorded the organisation URL privately rather than publishing it.
 - [x] Established a safe, fictional-data-only approach for the lab.
+- [x] Configured the organisation display name.
 - [ ] Create fictional lab users and security groups.
 - [ ] Apply group-based application assignments.
 - [ ] Enforce MFA for lab users.
@@ -99,6 +100,29 @@ https://integrator-<unique-id>.okta.com
 
 > **Important:** The Okta Integrator Free Plan is intended for development and testing—not production. Plan limits and inactivity rules can change, so confirm the current conditions in Okta's official documentation.
 
+## Phase 2: Configure the Organisation Name
+
+After securing the tenant, I configured a professional organisation display name to make the lab easier to identify and administer.
+
+From the **Okta Admin Console**:
+
+1. Select **Settings** from the left navigation menu.
+2. Select **Account**.
+3. Locate the **Organization Contact** section and click **Edit**.
+4. Enter the required organisation name in the **Company name** field.
+5. Review the remaining organisation details.
+6. Scroll down and click **Save**.
+
+![Okta organisation name configuration](https://cdn-images-1.medium.com/max/1000/1*inpBarxqi9zdYGn4YmYMKw.png)
+
+### Validation
+
+After saving the change, I confirmed that the updated organisation name appeared in the account information. This change updates the organisation's display information; it does not necessarily rename the Okta tenant URL or its permanent technical identifier.
+
+### Security consideration
+
+Before publishing evidence, I reviewed the screenshot and removed or obscured any administrator email address, complete tenant URL, personal information, recovery data, or other sensitive account details.
+
 ## Security Controls
 
 The completed lab will demonstrate:
@@ -127,13 +151,14 @@ This repository is strictly for a controlled, non-production lab.
 | Phase | Activity | Status |
 |---|---|---|
 | 1 | Create and secure the Okta tenant | Complete |
-| 2 | Create fictional users and security groups | Planned |
-| 3 | Configure group-based application access | Planned |
-| 4 | Configure and test MFA policies | Planned |
-| 5 | Generate successful and failed sign-ins | Planned |
-| 6 | Investigate authentication events | Planned |
-| 7 | Document findings and lessons learned | Planned |
-| 8 | Optional Active Directory integration | Future enhancement |
+| 2 | Configure the organisation display name | Complete |
+| 3 | Create fictional users and security groups | Planned |
+| 4 | Configure group-based application access | Planned |
+| 5 | Configure and test MFA policies | Planned |
+| 6 | Generate successful and failed sign-ins | Planned |
+| 7 | Investigate authentication events | Planned |
+| 8 | Document findings and lessons learned | Planned |
+| 9 | Optional Active Directory integration | Future enhancement |
 
 ## Skills Demonstrated
 
