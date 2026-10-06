@@ -69,6 +69,8 @@ flowchart LR
 - [x] Assigned fictional users to the appropriate groups and validated membership.
 - [x] Enabled Okta Verify as an authenticator.
 - [x] Created and validated an MFA enrolment policy and rule.
+- [x] Created a Global Session Policy requiring MFA for the SOC Analysts group.
+- [x] Added and validated the MFA authentication rule.
 - [ ] Apply group-based application assignments.
 - [ ] Generate successful and failed authentication events.
 - [ ] Investigate events in the Okta System Log.
@@ -331,6 +333,55 @@ After saving the rule, I returned to the policy page and confirmed that the new 
 
 > **Security note:** MFA policies should be tested with fictional pilot users before wider enforcement. Maintain a protected administrator recovery method, avoid excluding users without a documented reason, and never publish QR codes, recovery codes, credentials, tenant identifiers, or personal account information.
 
+## Phase 6: Require MFA During Authentication
+
+Authenticator enrolment makes Okta Verify available to users, but it does not by itself determine when users must prove their identity with MFA. In this phase, I created a **Global Session Policy** and rule that require MFA during authentication for the SOC Analysts group.
+
+### 1. Open Global Session Policy
+
+From the **Okta Admin Console**:
+
+1. Navigate to **Security → Global Session Policy**.
+2. Click **Add policy**.
+
+![Navigate to Global Session Policy](https://cdn-images-1.medium.com/max/1000/1*jt5f84CeuS9xFCDRA4KuDQ.png)
+
+### 2. Add the group-scoped policy
+
+I created a policy for the SOC Analysts group using a professional name and description, then assigned the relevant group.
+
+This policy applies secure sign-in and session requirements to the SOC Analysts group, strengthening identity protection and access control.
+
+![Add the SOC Analysts global session policy](https://cdn-images-1.medium.com/max/1000/1*N28SF5lu5ZRpAbFRqyG7PQ.png)
+
+### 3. Create the MFA rule
+
+Within the new policy, I created a clearly named rule to define its authentication and session conditions.
+
+![Name the MFA authentication rule](https://cdn-images-1.medium.com/max/1000/1*F6Yj2Xti4mr7Kh2bCZo8pw.png)
+
+The rule was configured to require multi-factor authentication for users covered by the policy. Session and reauthentication settings were selected to balance security with a practical lab user experience.
+
+![Configure the MFA rule conditions](https://cdn-images-1.medium.com/max/1000/1*x9SeLr12WA2ASW6lBVxl4g.png)
+
+![Configure the MFA and session requirements](https://cdn-images-1.medium.com/max/1000/1*BsVd03hwvjyH6La-_BhCtA.png)
+
+### 4. Validate the policy
+
+After saving the rule, I returned to the Global Session Policy page and confirmed that the policy and its MFA rule were active in the Admin Console.
+
+![Confirm the active Global Session Policy and MFA rule](https://cdn-images-1.medium.com/max/1000/1*4vKF2zeYrjiFcIumTkW6uw.png)
+
+### Outcome
+
+- A dedicated Global Session Policy was created.
+- The policy was scoped to the SOC Analysts group.
+- An MFA authentication rule was configured and activated.
+- The completed configuration was verified from the Admin Console.
+- Okta Verify can now be requested during authentication for users covered by the policy.
+
+> **Security note:** Policy order affects evaluation in Okta. A specific group-based policy should be positioned appropriately above broader policies and tested with fictional accounts before wider enforcement. Maintain a protected recovery method to prevent administrator lockout.
+
 ## Security Controls
 
 The completed lab will demonstrate:
@@ -363,11 +414,12 @@ This repository is strictly for a controlled, non-production lab.
 | 3 | Create three fictional users and enrol Okta Verify | Complete |
 | 4 | Create lab groups and assign user membership | Complete |
 | 5 | Enable Okta Verify and configure MFA enrolment | Complete |
-| 6 | Configure group-based application access | Planned |
-| 7 | Generate successful and failed sign-ins | Planned |
-| 8 | Investigate authentication events | Planned |
-| 9 | Document findings and lessons learned | Planned |
-| 10 | Optional Active Directory integration | Future enhancement |
+| 6 | Require MFA during authentication | Complete |
+| 7 | Configure group-based application access | Planned |
+| 8 | Generate successful and failed sign-ins | Planned |
+| 9 | Investigate authentication events | Planned |
+| 10 | Document findings and lessons learned | Planned |
+| 11 | Optional Active Directory integration | Future enhancement |
 
 ## Skills Demonstrated
 
