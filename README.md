@@ -71,6 +71,8 @@ flowchart LR
 - [x] Created and validated an MFA enrolment policy and rule.
 - [x] Created a Global Session Policy requiring MFA for the SOC Analysts group.
 - [x] Added and validated the MFA authentication rule.
+- [x] Enrolled Alice Analyst in Okta Verify and validated MFA registration.
+- [x] Confirmed the test user's account changed to Active.
 - [ ] Apply group-based application assignments.
 - [ ] Generate successful and failed authentication events.
 - [ ] Investigate events in the Okta System Log.
@@ -382,6 +384,66 @@ After saving the rule, I returned to the Global Session Policy page and confirme
 
 > **Security note:** Policy order affects evaluation in Okta. A specific group-based policy should be positioned appropriately above broader policies and tested with fictional accounts before wider enforcement. Maintain a protected recovery method to prevent administrator lockout.
 
+## Phase 7: Enrol Alice Analyst in MFA
+
+With the authenticator, enrolment policy, and Global Session Policy configured, I tested the end-user experience by enrolling the fictional user **Alice Analyst** in Okta Verify. This validates that the administrative controls created in Phases 5 and 6 operate as expected for a user in scope.
+
+### 1. Prepare the authenticator
+
+Alice installed the official **Okta Verify** application on a mobile device. The test was performed using only the fictional lab account and a private browser session.
+
+### 2. Sign in with the fictional account
+
+Alice opened the Okta end-user sign-in page and entered the username provided by the lab administrator.
+
+![Enter Alice's fictional username](https://cdn-images-1.medium.com/max/1000/1*jUwWnvsGpXhgEZ_TE4_zpw.png)
+
+She then entered the temporary password securely supplied by the administrator.
+
+![Enter Alice's temporary password](https://cdn-images-1.medium.com/max/1000/1*wF6VrCVsc0XEKkpGPofQ1A.png)
+
+### 3. Replace the temporary password
+
+During the first sign-in, Okta required Alice to replace the temporary password with a unique, strong password.
+
+![Replace the temporary password](https://cdn-images-1.medium.com/max/1000/1*FK817YTeECVbVdzbtJtJEA.png)
+
+### 4. Enrol Okta Verify
+
+When prompted to set up security methods, Alice selected **Okta Verify**.
+
+![Begin Okta Verify setup](https://cdn-images-1.medium.com/max/1000/1*S0uPB2PPmkNTFcJcSWMLqw.png)
+
+In the Okta Verify mobile application, Alice:
+
+1. Selected the **plus (+)** icon.
+2. Chose **Organization** or **Work or school**, depending on the application version.
+3. Continued to the QR-code scanner.
+4. Selected **Yes, ready to scan**.
+5. Scanned the QR code displayed in the browser.
+6. Completed the verification challenge.
+
+Alice successfully signed in and registered Okta Verify as an MFA factor.
+
+![Successful Okta Verify registration](https://cdn-images-1.medium.com/max/1000/1*QF9rJa2F4X6epomu_6Uofg.png)
+
+### 5. Validate the account status
+
+After Alice completed the first sign-in, changed the temporary password, and enrolled in MFA, I returned to **Directory → People**. Her account status had changed to **Active**, confirming successful activation.
+
+![Validate the active fictional user account](https://cdn-images-1.medium.com/max/1000/1*Vs0vZtzmWdIUCUgaUKFlfg.png)
+
+### Outcome
+
+- Alice authenticated using her fictional lab identity.
+- The temporary password was replaced successfully.
+- Okta Verify was registered as an MFA factor.
+- The configured policies presented the expected enrolment experience.
+- Alice's account status changed to Active.
+- The lab is ready for successful and failed authentication testing.
+
+> **Security note:** QR codes, temporary passwords, recovery codes, activation links, and authentication prompts may contain sensitive information. They must be obscured in public evidence. MFA enrolment should be performed by the account owner using a trusted device.
+
 ## Security Controls
 
 The completed lab will demonstrate:
@@ -415,11 +477,12 @@ This repository is strictly for a controlled, non-production lab.
 | 4 | Create lab groups and assign user membership | Complete |
 | 5 | Enable Okta Verify and configure MFA enrolment | Complete |
 | 6 | Require MFA during authentication | Complete |
-| 7 | Configure group-based application access | Planned |
-| 8 | Generate successful and failed sign-ins | Planned |
-| 9 | Investigate authentication events | Planned |
-| 10 | Document findings and lessons learned | Planned |
-| 11 | Optional Active Directory integration | Future enhancement |
+| 7 | Enrol Alice Analyst in Okta Verify and validate MFA | Complete |
+| 8 | Configure group-based application access | Planned |
+| 9 | Generate successful and failed sign-ins | Planned |
+| 10 | Investigate authentication events | Planned |
+| 11 | Document findings and lessons learned | Planned |
+| 12 | Optional Active Directory integration | Future enhancement |
 
 ## Skills Demonstrated
 
