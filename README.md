@@ -74,8 +74,9 @@ flowchart LR
 - [x] Enrolled Alice Analyst in Okta Verify and validated MFA registration.
 - [x] Confirmed the test user's account changed to Active.
 - [ ] Apply group-based application assignments.
-- [ ] Generate successful and failed authentication events.
-- [ ] Investigate events in the Okta System Log.
+- [x] Generated and verified a successful MFA-protected authentication event.
+- [ ] Generate a failed authentication event.
+- [ ] Complete the authentication-event investigation in the Okta System Log.
 - [ ] Document incident findings and remediation recommendations.
 
 ## Phase 1: Create the Okta Tenant
@@ -444,6 +445,66 @@ After Alice completed the first sign-in, changed the temporary password, and enr
 
 > **Security note:** QR codes, temporary passwords, recovery codes, activation links, and authentication prompts may contain sensitive information. They must be obscured in public evidence. MFA enrolment should be performed by the account owner using a trusted device.
 
+## Phase 8: Test and Verify a Successful Login
+
+This phase validates the complete authentication flow. Alice Analyst signs in, completes the required Okta Verify challenge, reaches the Okta dashboard, and produces a successful authentication event for administrative review.
+
+### 1. Start the sign-in process
+
+I opened a private browser session and navigated to the Okta end-user sign-in page. Using a private session prevented the administrator's existing browser session from interfering with the test.
+
+![Open the Okta end-user sign-in page](https://cdn-images-1.medium.com/max/1000/1*Hm2goe9K9xezC-R4Ghh9Zw.png)
+
+### 2. Select the authentication method
+
+Alice selected **Okta Verify** as the security method to complete multi-factor authentication and securely access the Okta dashboard.
+
+![Select Okta Verify as the security method](https://cdn-images-1.medium.com/max/1000/1*idt6mCXjxfAeFk95bbWEkA.png)
+
+### 3. Complete the Okta Verify challenge
+
+Alice opened Okta Verify on the enrolled device and entered the displayed verification code into the browser.
+
+![Enter the Okta Verify code](https://cdn-images-1.medium.com/max/1000/1*lNkvZzu1gROkKtwgv2gMpg.png)
+
+### 4. Enter the account password
+
+When prompted, Alice entered the password associated with the fictional lab account.
+
+![Enter the fictional user's password](https://cdn-images-1.medium.com/max/1000/1*PoNZZhlCAGKykNjtFOys3A.png)
+
+### 5. Confirm successful access
+
+The authentication process completed successfully, and Alice reached the Okta end-user dashboard.
+
+![Alice successfully accesses the Okta dashboard](https://cdn-images-1.medium.com/max/1000/1*ZAkyVQ8lNG35o2Hh7CeP3w.png)
+
+### 6. Verify the event in the System Log
+
+From the Admin Console, I opened **Reports → System Log**, filtered for Alice's fictional account, and confirmed that Okta recorded the successful authentication event.
+
+![System Log record confirming Alice's successful login](https://cdn-images-1.medium.com/max/1000/1*VdZT2cJUEUyflMs3zjq_WQ.png)
+
+### Validation Summary
+
+| Test | Expected result | Actual result | Status |
+|---|---|---|---|
+| Username recognised | Okta locates Alice's account | Account recognised | Passed |
+| Okta Verify challenge | Registered factor is requested | Verification code requested | Passed |
+| Password verification | Correct password is accepted | Password accepted | Passed |
+| Dashboard access | User reaches the dashboard | Dashboard displayed | Passed |
+| Event logging | Successful sign-in appears in System Log | Event recorded | Passed |
+
+### Outcome
+
+- The Global Session Policy applied to Alice as expected.
+- Okta Verify was requested during authentication.
+- Alice completed the MFA challenge and password verification.
+- Access to the Okta dashboard was granted.
+- The successful authentication event was confirmed in the System Log.
+
+> **Security note:** Authentication screenshots can expose usernames, tenant identifiers, device details, IP addresses, locations, session data, or verification codes. Sensitive values must be redacted before evidence is published. Never reuse or disclose a live one-time code.
+
 ## Security Controls
 
 The completed lab will demonstrate:
@@ -478,11 +539,12 @@ This repository is strictly for a controlled, non-production lab.
 | 5 | Enable Okta Verify and configure MFA enrolment | Complete |
 | 6 | Require MFA during authentication | Complete |
 | 7 | Enrol Alice Analyst in Okta Verify and validate MFA | Complete |
-| 8 | Configure group-based application access | Planned |
-| 9 | Generate successful and failed sign-ins | Planned |
-| 10 | Investigate authentication events | Planned |
-| 11 | Document findings and lessons learned | Planned |
-| 12 | Optional Active Directory integration | Future enhancement |
+| 8 | Test and verify a successful MFA-protected login | Complete |
+| 9 | Test and verify a failed login | Planned |
+| 10 | Configure group-based application access | Planned |
+| 11 | Complete authentication-event investigation | Planned |
+| 12 | Document findings and lessons learned | Planned |
+| 13 | Optional Active Directory integration | Future enhancement |
 
 ## Skills Demonstrated
 
