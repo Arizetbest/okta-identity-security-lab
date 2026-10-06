@@ -75,8 +75,8 @@ flowchart LR
 - [x] Confirmed the test user's account changed to Active.
 - [ ] Apply group-based application assignments.
 - [x] Generated and verified a successful MFA-protected authentication event.
-- [ ] Generate a failed authentication event.
-- [ ] Complete the authentication-event investigation in the Okta System Log.
+- [x] Generated and verified failed MFA-code and password authentication events.
+- [x] Located and reviewed Alice's authentication events in the Okta System Log.
 - [ ] Document incident findings and remediation recommendations.
 
 ## Phase 1: Create the Okta Tenant
@@ -505,6 +505,108 @@ From the Admin Console, I opened **Reports → System Log**, filtered for Alice'
 
 > **Security note:** Authentication screenshots can expose usernames, tenant identifiers, device details, IP addresses, locations, session data, or verification codes. Sensitive values must be redacted before evidence is published. Never reuse or disclose a live one-time code.
 
+## Phase 9: Test and Verify a Failed Login
+
+This phase validates Okta's response to invalid authentication attempts. Using Alice's fictional lab account, I intentionally supplied incorrect authentication information and confirmed that access was denied and the failures were recorded.
+
+### 1. Start the authentication test
+
+I opened the Okta sign-in page in a private browser session and began authentication using Alice's fictional account.
+
+![Begin Alice's failed authentication test](https://cdn-images-1.medium.com/max/1000/1*Us-Cz2EEgFgVwg8usWRzpw.png)
+
+### 2. Enter an incorrect Okta Verify code
+
+I intentionally entered an invalid Okta Verify code to test how the configured policy handled a failed MFA challenge.
+
+![Invalid Okta Verify code entered](https://cdn-images-1.medium.com/max/1000/1*aW8nYRoCrn9gVKshrCBRXg.png)
+
+### 3. Enter an incorrect password
+
+I then entered an incorrect password. Okta denied authentication, confirming that invalid credentials could not be used to access the account.
+
+![Okta denies authentication after an incorrect password](https://cdn-images-1.medium.com/max/1000/1*xPtYGusMRpKeWL1aa6YpXg.png)
+
+### 4. Confirm the failure in the System Log
+
+From the Admin Console, I navigated to **Reports → System Log** and confirmed that Okta had recorded the failed authentication activity.
+
+![Failed sign-in confirmed in the Okta System Log](https://cdn-images-1.medium.com/max/1000/1*1H2JpoOD_JLci50bNeIbwg.png)
+
+### Validation Summary
+
+| Test | Expected result | Actual result | Status |
+|---|---|---|---|
+| Incorrect verification code | MFA challenge fails | Authentication denied | Passed |
+| Incorrect password | Credential verification fails | Authentication denied | Passed |
+| Dashboard access | Access remains blocked | Dashboard not accessed | Passed |
+| Failure logging | Failure appears in System Log | Event recorded | Passed |
+
+### Outcome
+
+- An invalid Okta Verify code was rejected.
+- An incorrect password was rejected.
+- Alice was not granted access to the dashboard.
+- The failed authentication activity was recorded in the System Log.
+- The test demonstrated that the MFA and password controls were operating as intended.
+
+> **Testing note:** Failed-login tests should use authorised fictional accounts and a limited number of attempts. Repeated failures may trigger lockout, rate-limiting, or security alerts.
+
+## Phase 10: Locate and Review Events in the System Log
+
+The Okta System Log provides a central audit trail for authentication, policy evaluation, user activity, and administrative events. In this phase, I filtered the log to locate Alice's successful and failed authentication activity.
+
+### 1. Open the System Log
+
+From the **Okta Admin Console**:
+
+1. Navigate to **Reports → System Log**.
+2. Select a date and time range covering the tests.
+3. Filter the events using Alice's fictional username.
+4. Review the event time, actor, event information, outcome, target, client, and policy details.
+
+To return all failed events associated with Alice, I used:
+
+```text
+actor.alternateId eq "alice.analyst@lab.local" and outcome.result eq "FAILURE"
+```
+
+To narrow the results to failed session-start events, the following filter can be used:
+
+```text
+eventType eq "user.session.start" and actor.alternateId eq "alice.analyst@lab.local" and outcome.result eq "FAILURE"
+```
+
+### 2. Review Alice's authentication evidence
+
+The filtered System Log displayed Alice's authentication activity, providing evidence that Okta captured both successful and failed events generated during the lab tests.
+
+![Alice's authentication events in the Okta System Log](https://cdn-images-1.medium.com/max/1000/1*qEaYjSdcRhxfWjBTBjXeEQ.png)
+
+### Investigation Checklist
+
+| Field | Investigation purpose |
+|---|---|
+| Published time | Establishes when the activity occurred |
+| Actor | Identifies the user or service initiating the event |
+| Event type | Describes the authentication or policy action |
+| Outcome | Shows success, failure, or another result |
+| Reason | Explains why an action succeeded or failed |
+| Client IP and location | Supports source and anomaly analysis |
+| User agent and device | Helps identify the originating client |
+| Target | Identifies the affected user, application, or factor |
+| Debug context | Provides deeper troubleshooting details |
+
+### Outcome
+
+- Alice's authentication events were located successfully.
+- Successful and failed outcomes could be distinguished.
+- The event records provided timestamps and contextual investigation data.
+- The System Log demonstrated the value of centralised identity monitoring.
+- The evidence can support troubleshooting, incident investigation, and audit reporting.
+
+> **Security note:** System Log evidence may expose usernames, IP addresses, geographic information, device details, tenant identifiers, session data, and policy names. Redact sensitive information before publishing screenshots or exported CSV files.
+
 ## Security Controls
 
 The completed lab will demonstrate:
@@ -540,9 +642,9 @@ This repository is strictly for a controlled, non-production lab.
 | 6 | Require MFA during authentication | Complete |
 | 7 | Enrol Alice Analyst in Okta Verify and validate MFA | Complete |
 | 8 | Test and verify a successful MFA-protected login | Complete |
-| 9 | Test and verify a failed login | Planned |
-| 10 | Configure group-based application access | Planned |
-| 11 | Complete authentication-event investigation | Planned |
+| 9 | Test and verify failed authentication attempts | Complete |
+| 10 | Locate and review events in the System Log | Complete |
+| 11 | Configure group-based application access | Planned |
 | 12 | Document findings and lessons learned | Planned |
 | 13 | Optional Active Directory integration | Future enhancement |
 
