@@ -65,7 +65,8 @@ flowchart LR
 - [x] Configured the organisation display name.
 - [x] Created three fictional lab users.
 - [x] Completed first sign-in, password change, and Okta Verify enrolment for a test user.
-- [ ] Create professional security groups.
+- [x] Created four professionally named lab groups.
+- [x] Assigned fictional users to the appropriate groups and validated membership.
 - [ ] Apply group-based application assignments.
 - [ ] Enforce and test organisation-level MFA policies.
 - [ ] Generate successful and failed authentication events.
@@ -204,6 +205,65 @@ After the users completed their first sign-in and changed their temporary passwo
 
 > **Security note:** Temporary passwords must be transmitted securely and changed immediately. Passwords, QR codes, activation links, tenant identifiers, administrator details, and recovery information must never be published in screenshots or committed to this repository.
 
+## Phase 4: Create the Lab Groups and Assign Membership
+
+This phase establishes group-based identity administration. Groups make it possible to manage access consistently by assigning users to roles rather than granting permissions and applications directly to individual accounts.
+
+### 1. Create the general lab users group
+
+From the **Okta Admin Console**:
+
+1. Navigate to **Directory → Groups**.
+2. Click **Add group**.
+3. Enter the professional group name and description.
+4. Save the group.
+
+![Navigate to groups in Okta](https://cdn-images-1.medium.com/max/1000/1*C0MGCLgDJcRwRyvnAcwxNA.png)
+
+![Create the general lab users group](https://cdn-images-1.medium.com/max/1000/1*B4yZAUhcGexzSKVX_kWS9A.png)
+
+I repeated the same procedure until all four lab groups had been created. I then returned to **Directory → Groups** to confirm that every group appeared in the directory.
+
+![Four lab groups created in Okta](https://cdn-images-1.medium.com/max/1000/1*kMDG5pkDZZiyg1Anv7-5vA.png)
+
+### 2. Assign group membership
+
+To place a fictional user in the correct role-based group:
+
+1. Open the required group.
+2. Select **Assign people**.
+3. Search for the relevant fictional test user.
+4. Select the **plus (+)** icon beside the user.
+5. Click **Done** to save the assignment.
+
+For the contractor access scenario, I opened **GRP-OKTA-CONTRACTORS**.
+
+![Open the contractor group](https://cdn-images-1.medium.com/max/1000/1*_1H9_4P06qQYLfBjmvmjBQ.png)
+
+![Contractor group details](https://cdn-images-1.medium.com/max/1000/1*I2Uyx07uYpSk3tie73X4Zw.png)
+
+I selected **Assign people** and used the plus icon to add the appropriate fictional contractor account.
+
+![Assign people to the contractor group](https://cdn-images-1.medium.com/max/1000/1*jiKQd70fMuZ1BlkHKzHYCQ.png)
+
+![Select the fictional contractor user](https://cdn-images-1.medium.com/max/1000/1*CimjfPcs9pE6AOhOmGh3BA.png)
+
+### 3. Validate the membership
+
+After saving the assignment, I reopened the group and confirmed that the selected user appeared in its membership list.
+
+![Validate contractor group membership](https://cdn-images-1.medium.com/max/1000/1*OjnKBbV_XWkiSiWFaOFgrw.png)
+
+### Outcome
+
+- Four lab groups were created successfully.
+- A consistent professional naming convention was used.
+- Fictional users were assigned to the groups relevant to their job functions.
+- Membership was validated from the group details page.
+- The lab is ready for group-based application assignment and access testing.
+
+> **Security note:** Group membership should follow least-privilege and need-to-know principles. Access should be reviewed whenever a user joins, changes role, or leaves the organisation. Public evidence must not expose real identities, tenant identifiers, email addresses, credentials, or sensitive application assignments.
+
 ## Security Controls
 
 The completed lab will demonstrate:
@@ -234,7 +294,7 @@ This repository is strictly for a controlled, non-production lab.
 | 1 | Create and secure the Okta tenant | Complete |
 | 2 | Configure the organisation display name | Complete |
 | 3 | Create three fictional users and enrol Okta Verify | Complete |
-| 4 | Create professional security groups | Planned |
+| 4 | Create lab groups and assign user membership | Complete |
 | 5 | Configure group-based application access | Planned |
 | 6 | Configure and test organisation-level MFA policies | Planned |
 | 7 | Generate successful and failed sign-ins | Planned |
