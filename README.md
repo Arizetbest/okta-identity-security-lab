@@ -63,9 +63,11 @@ flowchart LR
 - [x] Recorded the organisation URL privately rather than publishing it.
 - [x] Established a safe, fictional-data-only approach for the lab.
 - [x] Configured the organisation display name.
-- [ ] Create fictional lab users and security groups.
+- [x] Created three fictional lab users.
+- [x] Completed first sign-in, password change, and Okta Verify enrolment for a test user.
+- [ ] Create professional security groups.
 - [ ] Apply group-based application assignments.
-- [ ] Enforce MFA for lab users.
+- [ ] Enforce and test organisation-level MFA policies.
 - [ ] Generate successful and failed authentication events.
 - [ ] Investigate events in the Okta System Log.
 - [ ] Document incident findings and remediation recommendations.
@@ -123,6 +125,85 @@ After saving the change, I confirmed that the updated organisation name appeared
 
 Before publishing evidence, I reviewed the screenshot and removed or obscured any administrator email address, complete tenant URL, personal information, recovery data, or other sensitive account details.
 
+## Phase 3: Create Three Fictional Users and Enrol MFA
+
+This phase demonstrates the joiner portion of the identity lifecycle: creating controlled test identities, activating a user account, replacing the temporary password, and enrolling an authenticator for multi-factor authentication.
+
+### 1. Create the first fictional user
+
+From the **Okta Admin Console**:
+
+1. Navigate to **Directory → People**.
+2. Click **Add person**.
+3. Enter the fictional user's profile information.
+4. Select **Activate now**.
+5. Set a unique temporary password.
+6. Require the user to change the password during the first sign-in.
+7. Save the account.
+
+![Add a fictional person in Okta](https://cdn-images-1.medium.com/max/1000/1*H3MsRbYfJ3GrWumAvkqekQ.png)
+
+![Configure the fictional user's activation settings](https://cdn-images-1.medium.com/max/1000/1*4JDNMoEpl3PzBoY4BNXt_Q.png)
+
+I repeated the process to create three fictional users representing different organisational roles:
+
+| User | Lab role | Purpose |
+|---|---|---|
+| Alice Analyst | Security analyst | Tests analyst access and MFA |
+| Bob Support | Technical support | Tests support-team access |
+| Carol Contractor | Contractor | Tests restricted and temporary access |
+
+### 2. Perform the first user sign-in
+
+To avoid mixing the administrator and end-user sessions, I opened a private browser window and visited the tenant's end-user dashboard. The tenant-specific URL was kept private.
+
+The user entered the username supplied by the administrator.
+
+![Enter the fictional user's username](https://cdn-images-1.medium.com/max/1000/1*jUwWnvsGpXhgEZ_TE4_zpw.png)
+
+The user then entered the temporary password.
+
+![Enter the temporary password](https://cdn-images-1.medium.com/max/1000/1*wF6VrCVsc0XEKkpGPofQ1A.png)
+
+### 3. Replace the temporary password
+
+At first sign-in, Okta required the user to replace the temporary password with a unique, strong password.
+
+![Change the temporary password](https://cdn-images-1.medium.com/max/1000/1*FK817YTeECVbVdzbtJtJEA.png)
+
+### 4. Enrol Okta Verify
+
+The user installed the official **Okta Verify** mobile application and selected the option to add an account. In the application, the user:
+
+1. Selected the **plus (+)** icon.
+2. Chose **Organization** or **Work or school**, depending on the version displayed.
+3. Continued to the QR-code scanner.
+4. Selected **Yes, ready to scan**.
+5. Scanned the QR code displayed in the browser.
+6. Completed the verification challenge.
+
+![Start Okta Verify enrolment](https://cdn-images-1.medium.com/max/1000/1*S0uPB2PPmkNTFcJcSWMLqw.png)
+
+Alice successfully completed the first sign-in and enrolled Okta Verify as an MFA factor.
+
+![Successful Okta Verify enrolment](https://cdn-images-1.medium.com/max/1000/1*QF9rJa2F4X6epomu_6Uofg.png)
+
+### 5. Validate the result
+
+After the users completed their first sign-in and changed their temporary passwords, their status changed from **Password expired** to **Active** in **Directory → People**.
+
+![Fictional users showing Active status](https://cdn-images-1.medium.com/max/1000/1*Vs0vZtzmWdIUCUgaUKFlfg.png)
+
+### Outcome
+
+- Three fictional user identities were created.
+- Temporary credentials were replaced during first sign-in.
+- A test user successfully enrolled Okta Verify.
+- The user account became active.
+- The process produced evidence for user onboarding and MFA enrolment.
+
+> **Security note:** Temporary passwords must be transmitted securely and changed immediately. Passwords, QR codes, activation links, tenant identifiers, administrator details, and recovery information must never be published in screenshots or committed to this repository.
+
 ## Security Controls
 
 The completed lab will demonstrate:
@@ -152,13 +233,14 @@ This repository is strictly for a controlled, non-production lab.
 |---|---|---|
 | 1 | Create and secure the Okta tenant | Complete |
 | 2 | Configure the organisation display name | Complete |
-| 3 | Create fictional users and security groups | Planned |
-| 4 | Configure group-based application access | Planned |
-| 5 | Configure and test MFA policies | Planned |
-| 6 | Generate successful and failed sign-ins | Planned |
-| 7 | Investigate authentication events | Planned |
-| 8 | Document findings and lessons learned | Planned |
-| 9 | Optional Active Directory integration | Future enhancement |
+| 3 | Create three fictional users and enrol Okta Verify | Complete |
+| 4 | Create professional security groups | Planned |
+| 5 | Configure group-based application access | Planned |
+| 6 | Configure and test organisation-level MFA policies | Planned |
+| 7 | Generate successful and failed sign-ins | Planned |
+| 8 | Investigate authentication events | Planned |
+| 9 | Document findings and lessons learned | Planned |
+| 10 | Optional Active Directory integration | Future enhancement |
 
 ## Skills Demonstrated
 
