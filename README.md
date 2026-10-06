@@ -67,8 +67,9 @@ flowchart LR
 - [x] Completed first sign-in, password change, and Okta Verify enrolment for a test user.
 - [x] Created four professionally named lab groups.
 - [x] Assigned fictional users to the appropriate groups and validated membership.
+- [x] Enabled Okta Verify as an authenticator.
+- [x] Created and validated an MFA enrolment policy and rule.
 - [ ] Apply group-based application assignments.
-- [ ] Enforce and test organisation-level MFA policies.
 - [ ] Generate successful and failed authentication events.
 - [ ] Investigate events in the Okta System Log.
 - [ ] Document incident findings and remediation recommendations.
@@ -264,6 +265,72 @@ After saving the assignment, I reopened the group and confirmed that the selecte
 
 > **Security note:** Group membership should follow least-privilege and need-to-know principles. Access should be reviewed whenever a user joins, changes role, or leaves the organisation. Public evidence must not expose real identities, tenant identifiers, email addresses, credentials, or sensitive application assignments.
 
+## Phase 5: Enable Okta Verify and Configure MFA Enrolment
+
+This phase strengthens account security by enabling **Okta Verify** and applying an authenticator enrolment policy. The policy determines which users must enrol an authentication factor, while its rule defines when and how the requirement is applied.
+
+### 1. Enable Okta Verify
+
+From the **Okta Admin Console**:
+
+1. Navigate to **Security → Authenticators**.
+2. Click **Add authenticator**.
+3. Select **Okta Verify**.
+4. Review the available configuration options.
+5. Add and activate the authenticator.
+
+![Navigate to Security and Authenticators](https://cdn-images-1.medium.com/max/1000/1*blt5XuNAWlPVGxmxqQgZ9Q.png)
+
+![Add an authenticator in Okta](https://cdn-images-1.medium.com/max/1000/1*bL1lCgapjikAkDFdgndojw.png)
+
+![Enable Okta Verify](https://cdn-images-1.medium.com/max/1000/1*TXahu5oNE_qYZ5qlqTj-cw.png)
+
+### 2. Create the MFA enrolment policy
+
+I created an authenticator enrolment policy to define the lab users covered by the MFA requirement.
+
+![Authenticator enrolment policy page](https://cdn-images-1.medium.com/max/1000/1*mekcUNPopMawAeXpF2JgdQ.png)
+
+To add the policy:
+
+1. Open the authenticator enrolment policies.
+2. Click **Add a policy**.
+3. Enter a clear policy name and description.
+4. Assign the intended lab groups or users.
+5. Configure Okta Verify as required.
+6. Save the policy.
+
+![Add the MFA enrolment policy](https://cdn-images-1.medium.com/max/1000/1*E2_qhv5cVIqbc1szt7ok4g.png)
+
+### 3. Add the policy rule
+
+I added a rule to specify the conditions under which users must enrol in Okta Verify.
+
+1. Open the newly created policy.
+2. Click **Add rule**.
+3. Enter a descriptive rule name.
+4. Configure the user and enrolment conditions required for the lab.
+5. Set the permitted grace period and actions.
+6. Save the rule.
+
+![Configure the MFA enrolment rule](https://cdn-images-1.medium.com/max/1000/1*y3OELYP72Gd5KAMmLUUuuQ.png)
+
+### 4. Validate the configuration
+
+After saving the rule, I returned to the policy page and confirmed that the new rule was active and correctly positioned within the policy.
+
+![Confirm the active MFA policy rule](https://cdn-images-1.medium.com/max/1000/1*Zh-lHiu8VqkUKMCd3z0fmQ.png)
+
+### Outcome
+
+- Okta Verify was enabled as an available authenticator.
+- An MFA enrolment policy was created for the intended lab scope.
+- A policy rule was added and activated.
+- The configuration was validated from the Admin Console.
+- The lab is ready for controlled MFA sign-in testing and authentication-event monitoring.
+
+> **Security note:** MFA policies should be tested with fictional pilot users before wider enforcement. Maintain a protected administrator recovery method, avoid excluding users without a documented reason, and never publish QR codes, recovery codes, credentials, tenant identifiers, or personal account information.
+
 ## Security Controls
 
 The completed lab will demonstrate:
@@ -295,8 +362,8 @@ This repository is strictly for a controlled, non-production lab.
 | 2 | Configure the organisation display name | Complete |
 | 3 | Create three fictional users and enrol Okta Verify | Complete |
 | 4 | Create lab groups and assign user membership | Complete |
-| 5 | Configure group-based application access | Planned |
-| 6 | Configure and test organisation-level MFA policies | Planned |
+| 5 | Enable Okta Verify and configure MFA enrolment | Complete |
+| 6 | Configure group-based application access | Planned |
 | 7 | Generate successful and failed sign-ins | Planned |
 | 8 | Investigate authentication events | Planned |
 | 9 | Document findings and lessons learned | Planned |
